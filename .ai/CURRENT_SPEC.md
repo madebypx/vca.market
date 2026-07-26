@@ -1,43 +1,42 @@
 # CURRENT_SPEC.md
 
 ## Active task
-Vertical de Veículos (`/veiculos`) — Phase 2
+Vertical de Serviços & Profissionais (`/servicos`) — Phase 2
 
 ## Goal
-Implementar a rota da vertical de Veículos (`/veiculos`) em Vitória da Conquista com visualização em Grid de Cards com alta densidade de informação técnica, comparador em relação à Tabela FIPE (ex: *"R$ 3.000 abaixo da FIPE"*), filtros avançados por Marca, Ano, Km, Câmbio e Combustível, além de destacar o selo de "Laudo Cautelar Aprovado".
+Implementar a rota da vertical de Serviços (`/servicos`) em Vitória da Conquista com foco no portfólio visual do prestador, média de avaliações com estrelas de clientes locais, tag de "Atende em Domicílio", filtros por especialidade e solicitação de orçamento via WhatsApp.
 
 ## Scope
-1. **Grid de Veículos Responsivo**:
-   - Layout em Grid de Cards otimizado para comparação rápida de carros, motos e utilitários.
-   - Filtros laterais (Desktop) ou gaveta de filtros slide-over (Mobile).
+1. **Grid de Portfólio de Serviços**:
+   - Galeria no estilo portfólio destacando fotos de trabalhos concluídos anteriormente em Vitória da Conquista.
+   - Apresentação da nota média (estrelas) e quantidade de avaliações validadas.
 
-2. **Barra de Filtros Técnicos de Veículos**:
-   - Filtro por Tipo (Carro, Moto, Utilitário/Caminhão).
-   - Filtro por Marca / Modelo (Toyota, Volkswagen, Chevrolet, Fiat, Honda, etc.).
-   - Filtro por Faixa de Ano (ex: 2018 - 2024).
-   - Filtro por Câmbio (Automático / Manual) e Combustível (Flex, Gasolina, Diesel, Elétrico).
-   - Checkbox: Apenas com *Laudo Cautelar Aprovado* e Apenas *Abaixo da Tabela FIPE*.
+2. **Barra de Filtros por Especialidade**:
+   - Filtro por Especialidade (Eletricista, Refrigeração/Ar Condicionado, Pintor, Técnico de Informática, Design/Marketing, Diarista/Limpeza, etc.).
+   - Checkbox: Apenas quem *Atende em Domicílio* em VCA.
+   - Checkbox: Apenas com *Orçamento Grátis*.
+   - Filtro por Bairro base do prestador.
 
-3. **Card Automotivo (Micro-UX de Veículos conforme `.ai/DESIGN.md`)**:
-   - Badge proeminente de Comparativo FIPE (ex: `R$ 2.500 abaixo da FIPE`).
-   - Spec Pill com Ano/Modelo, Quilometragem (Km), Câmbio e Combustível.
-   - Tag de Bairro de VCA e Selo de "Laudo Cautelar Aprovado" / Loja Física no Centro.
-   - CTA direto: *"Falar com Vendedor / Simular no WhatsApp"*.
+3. **Card do Prestador (Micro-UX de Serviços conforme `.ai/DESIGN.md`)**:
+   - Estrelas de avaliação com quantidade de clientes (ex: `★ 4.9 (42 avaliações)`).
+   - Spec Pill com especialidade, modelo de orçamento e indicação de atendimento residencial.
+   - Tag de Bairro de VCA + Selo "Morador Verificado" ou "Empresa de Serviços".
+   - CTA direto: *"Solicitar Orçamento Grátis no WhatsApp"*.
 
 4. **Dados Demonstrativos Contextualizados (Mock)**:
-   - Coleção de veículos reais de seminovos e particulares em Vitória da Conquista com valores FIPE simulados.
+   - Coleção de autônomos e empresas de serviços de Vitória da Conquista com fotos reais de serviços prestados.
 
 ## Acceptance criteria
-- Respeitar estritamente as regras de Micro-UX de Veículos do `.ai/DESIGN.md`.
-- Cálculo/badge visual de diferença para a Tabela FIPE em destaque no card.
-- Filtros dinâmicos em tempo real sem recarregamento da página.
+- Respeitar estritamente as regras de Micro-UX de Serviços do `.ai/DESIGN.md`.
+- Destaque para avaliações e selo de verificação local.
+- Filtros por especialidade dinâmicos sem recarregamento da página.
 - Responsividade completa em celulares, tablets e desktops.
 
 ## Out of scope
-- Integração em tempo real via API remota da Tabela FIPE (usaremos valores FIPE de referência mockados no objeto de dados conforme `DATA_MODEL.md`).
-- Simulação bancária real de financiamento (o CTA direciona para negociação/simulação via WhatsApp).
+- Sistema completo de agendamento por calendário interativo (o agendamento/orçamento ocorre via WhatsApp no MVP).
+- Cadastro/avaliação pós-serviço em tempo real (usaremos dados mockados estruturados conforme `DATA_MODEL.md`).
 
 ## Deliverables
-- Rota `/veiculos` com Grid Responsivo.
-- Componentes de filtros automotivos, card de veículo com badge FIPE e gaveta mobile.
+- Rota `/servicos` com Grid de Portfólio.
+- Componentes de filtro por especialidade, card de prestador com avaliações e CTA de orçamento.
 - Documento `.ai/CURRENT_SPEC.md` atualizado.
