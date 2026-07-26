@@ -1,42 +1,46 @@
-# CURRENT_SPEC.md
+# CURRENT_SPEC.md — Sprint P0: Infraestrutura Crítica & Operacionalização
 
 ## Active task
-Vertical de Vagas de Emprego (`/vagas`) — Phase 2
+Infraestrutura Fundamental & Operacionalização de Dados (P0.1 a P0.4)
 
 ## Goal
-Implementar a rota da vertical de Vagas de Emprego (`/vagas`) em Vitória da Conquista com visualização em Lista Qualificada de Oportunidades, destaque para modelo de trabalho (Presencial/Híbrido), faixa salarial, tipo de contrato (CLT/PJ/Estágio), selo de Empresa Comprovada em VCA e envio direto de currículo / candidatura via WhatsApp.
+Migrar o Conquista Market (`vca.market`) de um protótipo com dados estáticos mockados para uma plataforma funcional pronta para produção, implementando persistência relacional de dados (Supabase PostgreSQL), pipeline de upload e conversão de mídia em WebP (Supabase Storage), motor de busca vetorial/híbrida em tempo real (Typesense) e autenticação de contas com validação por WhatsApp/SMS OTP (P0.1 a P0.4).
 
 ## Scope
-1. **Lista Qualificada de Oportunidades Locais**:
-   - Layout em Lista Limpa e Compacta otimizado para rápida leitura de vagas de emprego na cidade.
-   - Filtros por modelo de trabalho, regime de contratação e área de atuação.
 
-2. **Barra de Filtros de Empregos**:
-   - Filtro por Área de Atuação (Comercial/Vendas, Atendimento/Caixa, TI/Tecnologia, Administrativo, Saúde, Logística/Entrega).
-   - Filtro por Modelo de Trabalho (Presencial, Híbrido, Remoto).
-   - Filtro por Tipo de Contrato (CLT, PJ, Estágio, Meio Período).
-   - Checkbox: Apenas *Empresas Verificadas em VCA*.
+### 1. P0.1 — Persistência de Dados (Supabase PostgreSQL & ORM/Query Builder)
+- Conexão e configuração do cliente Supabase no Next.js App Router (Server Actions / Route Handlers).
+- Modelagem de tabelas relacionais conforme [`.ai/DATA_MODEL.md`](file://./.ai/DATA_MODEL.md): `users`, `profiles`, `listings` (com coluna `jsonb` flexível por vertical), `leads` e `favorites`.
+- Substituição dos arquivos `mock*.ts` por consultas assíncronas ao banco de dados com tratamento de cache e revalidação do Next.js (`revalidatePath` / `revalidateTag`).
 
-3. **Card da Vaga (Micro-UX de Empregos conforme `.ai/DESIGN.md`)**:
-   - Badge de Modelo de Trabalho (*Presencial - Centro*, *Híbrido*).
-   - Spec Pill com faixa salarial (ex: `R$ 2.000 - R$ 3.000`), contrato (`CLT`) e carga horária.
-   - Tag de Bairro de VCA + Selo Ouro "Empresa Verificada".
-   - CTA direto: *"Enviar Currículo / Candidatar-se no WhatsApp"*.
+### 2. P0.2 — Pipeline de Upload & Processamento de Imagens (Supabase Storage)
+- Criação dos buckets de storage: `listing-media` (público) e `user-avatars` (público).
+- Componente de Upload de Imagens com suporte a drag-and-drop no navegador/celular.
+- Compressão e conversão automática de imagens para WebP no lado do cliente antes do upload para otimização de banda.
 
-4. **Dados Demonstrativos Contextualizados (Mock)**:
-   - Oportunidades reais oferecidas por empresas, lojas e escritórios de Vitória da Conquista.
+### 3. P0.3 — Motor de Busca Vetorial & Híbrida em Tempo Real (Typesense)
+- Configuração do schema de indexação no Typesense para imóveis, veículos, serviços, produtos e vagas.
+- Sincronização automática de dados do PostgreSQL para o Typesense via Webhooks / Server Actions no evento de inserção/edição.
+- Endpoint `/api/search` retornando auto-complete e resultados filtrados por bairro de Vitória da Conquista em < 50ms.
+
+### 4. P0.4 — Autenticação de Contas & SMS/WhatsApp OTP
+- Autenticação sem senha via Supabase Auth (magic link / OTP por WhatsApp/SMS).
+- Fluxo de validação de CPF para contas de *Anunciantes Particulares* e validação de registro profissional (CRECI-BA) para contas *Conquista Pro*.
+- Proteção de rotas privadas (`/perfil`, `/anunciar`) através de Middleware do Next.js.
 
 ## Acceptance criteria
-- Respeitar estritamente as regras de Micro-UX de Empregos do `.ai/DESIGN.md`.
-- Leitura rápida de faixa salarial e requisitos básicos.
-- Filtros de vagas dinâmicos em tempo real sem recarregamento da página.
-- Responsividade completa em celulares, tablets e desktops.
+- Inserção, edição e exclusão real de anúncios persistida no banco Supabase.
+- Upload funcional de imagens via celular/desktop com geração de URLs públicas otimizadas.
+- Busca em tempo real por palavra-chave e filtro por bairro respondendo em menos de 50ms via Typesense.
+- Login persistente por sessão de usuário com proteção de middleware.
+- Zero erros de TypeScript (`npm run build` deve compilar sem avisos de tipagem).
 
-## Out of scope
-- Sistema completo de ATS/triagem interna de currículos (o envio de CV/candidatura ocorre diretamente no WhatsApp do RH/empresa no MVP).
-- Conexão de formulários complexos de histórico profissional (usaremos dados mockados estruturados conforme `DATA_MODEL.md`).
+## Out of scope nesta Sprint
+- Criação de novas rotas ou componentes puramente visuais no frontend (todas as views já foram entregues no MVP).
+- Gateway de pagamento por cartão de crédito (a cobrança de assinaturas Pro será gerenciada manualmente no MVP inicial).
 
 ## Deliverables
-- Rota `/vagas` com Lista Qualificada de Oportunidades.
-- Componentes de filtro de empregos, card de vaga com especificações salariais e CTA de envio de CV.
-- Documento `.ai/CURRENT_SPEC.md` atualizado.
+- Clientes Supabase & Typesense configurados em `src/lib/supabase/` e `src/lib/typesense/`.
+- Server Actions e APIs de backend em `src/app/actions/` e `src/app/api/`.
+- Componente de upload reutilizável `src/components/common/ImageUploader.tsx`.
+- Middleware de rotas protegidas em `src/middleware.ts`.

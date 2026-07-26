@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { ImovelItem } from '@/data/mockImoveis';
 
 interface ImovelCardProps {
@@ -31,7 +32,7 @@ export function ImovelCard({ imovel, isHovered, onHover }: ImovelCardProps) {
           : 'border-slate-200 dark:border-slate-700/60 shadow-xs hover:shadow-md'
       }`}
     >
-      <div>
+      <Link href={`/imoveis/${imovel.id}`} className="block flex-1 cursor-pointer">
         {/* Image Header Container */}
         <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100 dark:bg-slate-700">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -79,7 +80,7 @@ export function ImovelCard({ imovel, isHovered, onHover }: ImovelCardProps) {
             )}
           </div>
         </div>
-      </div>
+      </Link>
 
       {/* Seller & CRECI Footer */}
       <div className="p-4 pt-3 border-t border-slate-100 dark:border-slate-700/40 bg-slate-50/50 dark:bg-slate-800/50 flex flex-col gap-3">
@@ -97,6 +98,7 @@ export function ImovelCard({ imovel, isHovered, onHover }: ImovelCardProps) {
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
           className="w-full bg-[var(--color-accent-green)] hover:bg-emerald-600 text-slate-950 font-bold py-2 px-3 rounded-xl text-xs flex items-center justify-center gap-2 transition-colors shadow-xs"
         >
           <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">

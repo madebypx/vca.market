@@ -1,55 +1,70 @@
-# ROADMAP.md — VCA Market Product & Engineering Roadmap
+# ROADMAP.md — Conquista Market (`vca.market`) Technical & Product Roadmap
 
-> **PXOS Normative Document**: Tracks the phased evolution of **Conquista Market (`vca.market`)** from Web MVP to PWA and Mobile Native App.
+> **PXOS Normative Document**: Define o plano de evolução do **Conquista Market** priorizado por infraestrutura crítica (P0), ferramentas de conversão (P1) e diferenciais hiperlocais de escala (P2).
 
 ---
 
-## Roadmap Overview
+## Evolution Pipeline Overview
 
 ```
-[ Phase 1: Web Shell & Foundation ] ──► [ Phase 2: Verticals & Listings ] ──► [ Phase 3: Trust & Merchant Pro ] ──► [ Phase 4: PWA & Monetization ] ──► [ Phase 5: Native App ]
-          (COMPLETED / ACTIVE)                      (UPCOMING)                          (PLANNED)                           (PLANNED)                       (FUTURE SCALE)
+[ Frontend Micro-UX & Views (Concluído) ]
+                   │
+                   ▼
+[ P0: Infraestrutura Crítica & Operacionalização ] (EM ANDAMENTO)
+  ├── P0.1 Persistência de Dados (Supabase PostgreSQL + Prisma/Kysely)
+  ├── P0.2 Upload de Mídia & Pipeline WebP (Supabase Storage)
+  ├── P0.3 Buscador Vetorial & Híbrido (< 50ms com Typesense)
+  └── P0.4 Autenticação & Validação por WhatsApp/SMS OTP
+                   │
+                   ▼
+[ P1: Ferramentas de Conversão & Valor Agregado B2B/C2C ]
+  ├── P1.1 Simulador de Financiamento Habitacional (Caixa/SFH em VCA)
+  ├── P1.2 Comparador Avançado Tabela FIPE para Veículos
+  ├── P1.3 Gerador de Currículo Rápido via WhatsApp (`/vagas`)
+  └── P1.4 Dashboard Analítico de Leads para Contas Conquista Pro
+                   │
+                   ▼
+[ P2: Inovação Hiperlocal & Escala Regional ]
+  ├── P2.1 "Pedido Aberto em VCA" (Mural de Demandas Locais)
+  ├── P2.2 PWA & Notificações Push de Leads no Celular
+  └── P2.3 Mapa de Calor de Valorização por Bairro de VCA
 ```
 
 ---
 
-## Phase 1: Web Shell & Core Foundation (Active / In Progress)
-- [x] Initial product strategic blueprint & PXOS governance docs (`.ai/DESIGN.md`, `PROJECT_CONTEXT.md`).
-- [x] GitHub repository setup (`madebypx/vca.market`).
-- [x] Next.js 16 App Router boilerplate with Tailwind v4 semantic tokens.
-- [x] Universal Shell components (`Header.tsx`, `MobileDock.tsx`, `Footer.tsx`).
-- [x] System Architecture (`.ai/ARCHITECTURE.md`) & Data Model (`.ai/DATA_MODEL.md`) specifications.
-- [ ] **Next Task**: Home Page UI (`/`) with Hero Search, Neighborhood Filter Bar, and Featured Verticals.
+## 🟢 Etapa Concluída: Frontend Micro-UX & Shell Universal
+- [x] **Universal Shell**: Header com filtro por bairros de VCA, busca global e Mobile Dock.
+- [x] **5 Verticais de Mercado**: `/imoveis`, `/veiculos`, `/servicos`, `/comercio`, `/vagas`.
+- [x] **Página de Detalhes do Imóvel (`/imoveis/[id]`)**: Galeria de fotos, modal Lightbox, specs técnicas e sidebar de agendamento via WhatsApp.
+- [x] **Sistema de Contas (`/perfil`)**: Perfil do Usuário com alternância de papéis (*Comum*, *Particular CPF*, *Pro CRECI*).
+- [x] **Hotsite do Anunciante (`/anunciante/[id]`)**: Header centralizado, bio, links sociais e vitrine de anúncios.
 
 ---
 
-## Phase 2: Category Verticals & Discovery Layer (COMPLETED)
-- [x] **Imóveis Vertical (`/imoveis`)**: Interactive Map + Split List View, filter by neighborhood, $m^2$, beds, and CRECI badge.
-- [x] **Veículos Vertical (`/veiculos`)**: Grid View with FIPE price comparison badge, Km, transmission, and Cautelar approval.
-- [x] **Serviços Vertical (`/servicos`)**: Portfolio Grid, star rating reviews, "Atende em Domicílio" tag.
-- [x] **Comércio Local Vertical (`/comercio`)**: Retail Product Grid with physical store pickup tags.
-- [x] **Vagas Vertical (`/vagas`)**: Compact List View with salary range and work model badges.
-- [x] **Universal Navigation Shell**: Integrated header and mobile dock supporting all 5 business verticals.
+## 🔴 P0 — Infraestrutura Crítica & Operacionalização (EM ANDAMENTO)
+> **Foco**: Migração de dados em mock para persistência real em banco de dados, storage de mídia, busca acelerada e autenticação.
+
+- [ ] **P0.1 Persistência de Dados (Supabase PostgreSQL)**: Modelagem relacional (`DATA_MODEL.md`) com Prisma/Kysely para CRUD real de anúncios e perfis.
+- [ ] **P0.2 Pipeline de Mídia & Upload**: Integração com Supabase Storage para upload de fotos com conversão automática WebP.
+- [ ] **P0.3 Motor de Busca Acelerado (Typesense)**: Indexação vetorial acelerada para buscas híbridas por palavra-chave, bairro e categoria em < 50ms.
+- [ ] **P0.4 Autenticação & Validação (WhatsApp/SMS OTP)**: Login sem senha e validação do selo de verificação de CPF (Particular) e CRECI (Pro).
 
 ---
 
-## Phase 3: Trust Engine & Store Profiles
-- [ ] **Verification System**: Implementation of verification badges (Resident, Physical Store, CRECI / Pro Partner).
-- [ ] **Store Pages (`/loja/[slug]`)**: Customized storefronts for local merchants in VCA (Centro, Bairro Brasil, Candeias, etc.).
-- [ ] **Seller Dashboard (Painel Pro)**: Lead click counter, listing manager, and performance metrics.
-- [ ] **Verified Reviews System**: Two-way rating system tied to confirmed platform leads.
+## 🟡 P1 — Ferramentas de Conversão & Valor Agregado B2B/C2C
+> **Foco**: Aumentar a taxa de conversão em leads no WhatsApp e provar valor para assinantes Conquista Pro.
+
+- [ ] **P1.1 Simulador de Financiamento Habitacional (Caixa / VCA)**: Widget interativo para calcular parcela estimada de imóveis.
+- [ ] **P1.2 Comparador Tabela FIPE Aprofundado**: Ficha de veículos com desvalorização histórica e variação frente à FIPE local.
+- [ ] **P1.3 Gerador de Currículo Rápido (`/vagas`)**: Formatação de mini-currículo enviado diretamente no WhatsApp do contratante.
+- [ ] **P1.4 Dashboard Analítico Conquista Pro**: Relatório mensal de visualizações, horários de pico e cliques de WhatsApp por bairro.
 
 ---
 
-## Phase 4: PWA & Monetization Engine
-- [ ] **PWA Capabilities**: Web manifest, offline caching, and add-to-home-screen prompts.
-- [ ] **Pay-per-Boost**: Ad placement engine for top-of-neighborhood and top-of-category listing boosts.
-- [ ] **Subscription Engine (Conquista Pro)**: B2B recurring billing for local stores and real estate agencies.
-- [ ] **Push Notifications**: Real-time push alerts for sellers when receiving new leads.
+## 🟢 P2 — Inovação Hiperlocal & Escala Regional
+> **Foco**: Diferenciais competitivos exclusivos que garantem dominância sobre marketplaces nacionais.
 
----
+- [ ] **P2.1 Mural de Pedidos ("Procuro em VCA")**: Moral de demandas abertas onde moradores solicitam serviços/produtos e profissionais Pro respondem.
+- [ ] **P2.2 PWA & Notificações Push**: Instalação na tela inicial do celular e push instantâneo ao receber novos leads.
+- [ ] **P2.3 Inteligência de Mercado / Valorização por Bairro**: Painel público de tendência de preço por $m^2$ nos bairros de Vitória da Conquista.
 
-## Phase 5: Native Mobile App Evolution
-- [ ] **React Native / Flutter App**: iOS and Android native apps sharing API endpoints and database logic.
-- [ ] **Camera-First Listing Builder**: Instant photo upload and automatic spec fill.
-- [ ] **Native Geolocation**: Real-time "Near Me" search by current GPS coordinates in Vitória da Conquista.

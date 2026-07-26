@@ -15,6 +15,7 @@ interface VagasFilterBarProps {
 const AREAS = [
   { id: 'todos', name: 'Todas as Áreas' },
   { id: 'vendas', name: '💼 Vendas & Comercial' },
+  { id: 'atendimento', name: '🎧 Atendimento & Caixa' },
   { id: 'ti', name: '💻 TI & Tecnologia' },
   { id: 'admin', name: '📊 Administrativo' },
   { id: 'saude', name: '🩺 Saúde' },
