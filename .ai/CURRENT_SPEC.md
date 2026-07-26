@@ -1,61 +1,43 @@
 # CURRENT_SPEC.md
 
 ## Active task
-Home Page UI (`/`) — Phase 1
+Vertical de Imóveis (`/imoveis`) — Phase 2
 
 ## Goal
-Implement the first production-grade homepage for VCA Market, aligned with `.ai/DESIGN.md`, `.ai/ROADMAP.md`, and the product foundation. The page must establish the marketplace identity, reinforce local trust, and create strong entry points into category discovery.
+Implementar a página da vertical de Imóveis (`/imoveis`) em Vitória da Conquista com visualização em Split View (Mapa + Lista de Imóveis), barra de filtros técnicos específicos do setor ($m^2$, quartos, vagas, aluguel/venda) e destaque para o selo de verificação CRECI-BA.
 
 ## Scope
-1. Hero section
-- Prominent unified search input.
-- Quick neighborhood selector focused on Vitória da Conquista (e.g. Candeias, Centro, Recreio, Bairro Brasil, Boa Vista).
-- Clear value proposition oriented around local commerce and opportunity discovery.
+1. **Layout Split View & Alternador Mobile**:
+   - Desktop: Painel esquerdo com a lista de imóveis + Painel direito fixo com mapa simulado de VCA (marcadores por bairro).
+   - Mobile: Botão flutuante para alternar entre `Lista` e `Mapa`.
 
-2. Featured verticals section
-- Interactive cards for the 5 main business verticals:
-  - Imóveis
-  - Veículos
-  - Serviços
-  - Comércio
-  - Vagas
-- Each card must feel category-specific, not generic.
+2. **Barra de Filtros Técnicos de Imóveis**:
+   - Filtro por Tipo (Apartamento, Casa, Terreno, Comercial).
+   - Filtro por Transação (Venda / Aluguel).
+   - Filtro por Bairro de VCA (Candeias, Recreio, Boa Vista, Alto Maron, etc.).
+   - Slider/Input de Área Útil ($m^2$) e Faixa de Preço.
+   - Filtro de Quartos (1+, 2+, 3+, 4+) e Vagas.
 
-3. Local trust section
-- Dedicated trust block reinforcing verification logic such as “Empresa Conquistense” and “Morador Verificado”.
-- Must visually communicate safety, local legitimacy, and professionalization.
+3. **Card de Anúncio Imobiliário (Micro-UX)**:
+   - Destaque para Área útil ($m^2$), Dormitórios, Banheiros e Vagas.
+   - Tag de Bairro e indicador de Aluguel vs Venda.
+   - Selo Prata/Platinum para "Imobiliária Credenciada" ou "Corretor com CRECI".
+   - CTA direto: *"Agendar Visita no WhatsApp"*.
 
-4. Featured listings showcase
-- Marketplace-style listing grid using the listing card rules defined in `.ai/DESIGN.md`.
-- Must include verification badges and category-specific spec pills.
-- Can use mock/fallback data if backend integration is not ready yet.
+4. **Dados Demonstrativos Contextualizados (Mock)**:
+   - Coleção de imóveis reais em bairros de Vitória da Conquista com coordenadas simuladas no mapa.
 
 ## Acceptance criteria
-- The homepage renders inside the universal shell and respects the global layout rules from `.ai/DESIGN.md`.
-- The hero is the primary focus above the fold.
-- The 5 verticals are clearly discoverable and visually differentiated.
-- Trust signals are visible without requiring extra clicks.
-- Listing cards do not flatten categories into one generic pattern.
-- The page is responsive across desktop, tablet, and mobile.
-- Empty/loading states are handled gracefully where needed.
+- Respeitar rigorosamente o `.ai/DESIGN.md` (regras específicas da categoria Imóveis).
+- O mapa e a lista sincronizam ao passar o mouse sobre o imóvel ou aplicar filtros.
+- Responsividade total com alternador Lista/Mapa no celular.
+- Filtros técnicos dinâmicos sem recarregamento de página.
 
 ## Out of scope
-- Real search backend integration.
-- Full autocomplete implementation.
-- Final listing ranking logic.
-- Seller dashboard.
-- Vertical pages implementation.
-- Listing detail page.
-- Full monetization UI.
-
-## Implementation notes
-- Use `.ai/DESIGN.md` as the normative UI/UX source of truth.
-- Use `.ai/ROADMAP.md` to stay aligned with the current phase.
-- Preserve the hyper-local, trust-first, WhatsApp-aware product positioning from the foundation.
-- Prefer a strong static/dummy-data implementation over shallow partial integrations for this phase.
+- Integração real com API de Mapas paga (usaremos Mapbox/Leaflet com mapas abertos ou componente mockup interativo de alta qualidade).
+- Conexão final com banco Supabase (usaremos mock estruturado conforme o schema de `DATA_MODEL.md`).
 
 ## Deliverables
-- Homepage route implementation for `/`
-- Reusable homepage sections/components as appropriate
-- Responsive UI
-- Brief completion report with files changed and any TODOs
+- Rota `/imoveis` com Split View.
+- Componentes de filtros técnicos, card de imóvel e container de mapa.
+- Documento `.ai/CURRENT_SPEC.md` atualizado.
