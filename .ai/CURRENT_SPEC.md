@@ -1,43 +1,43 @@
 # CURRENT_SPEC.md
 
 ## Active task
-Vertical de Imóveis (`/imoveis`) — Phase 2
+Vertical de Veículos (`/veiculos`) — Phase 2
 
 ## Goal
-Implementar a página da vertical de Imóveis (`/imoveis`) em Vitória da Conquista com visualização em Split View (Mapa + Lista de Imóveis), barra de filtros técnicos específicos do setor ($m^2$, quartos, vagas, aluguel/venda) e destaque para o selo de verificação CRECI-BA.
+Implementar a rota da vertical de Veículos (`/veiculos`) em Vitória da Conquista com visualização em Grid de Cards com alta densidade de informação técnica, comparador em relação à Tabela FIPE (ex: *"R$ 3.000 abaixo da FIPE"*), filtros avançados por Marca, Ano, Km, Câmbio e Combustível, além de destacar o selo de "Laudo Cautelar Aprovado".
 
 ## Scope
-1. **Layout Split View & Alternador Mobile**:
-   - Desktop: Painel esquerdo com a lista de imóveis + Painel direito fixo com mapa simulado de VCA (marcadores por bairro).
-   - Mobile: Botão flutuante para alternar entre `Lista` e `Mapa`.
+1. **Grid de Veículos Responsivo**:
+   - Layout em Grid de Cards otimizado para comparação rápida de carros, motos e utilitários.
+   - Filtros laterais (Desktop) ou gaveta de filtros slide-over (Mobile).
 
-2. **Barra de Filtros Técnicos de Imóveis**:
-   - Filtro por Tipo (Apartamento, Casa, Terreno, Comercial).
-   - Filtro por Transação (Venda / Aluguel).
-   - Filtro por Bairro de VCA (Candeias, Recreio, Boa Vista, Alto Maron, etc.).
-   - Slider/Input de Área Útil ($m^2$) e Faixa de Preço.
-   - Filtro de Quartos (1+, 2+, 3+, 4+) e Vagas.
+2. **Barra de Filtros Técnicos de Veículos**:
+   - Filtro por Tipo (Carro, Moto, Utilitário/Caminhão).
+   - Filtro por Marca / Modelo (Toyota, Volkswagen, Chevrolet, Fiat, Honda, etc.).
+   - Filtro por Faixa de Ano (ex: 2018 - 2024).
+   - Filtro por Câmbio (Automático / Manual) e Combustível (Flex, Gasolina, Diesel, Elétrico).
+   - Checkbox: Apenas com *Laudo Cautelar Aprovado* e Apenas *Abaixo da Tabela FIPE*.
 
-3. **Card de Anúncio Imobiliário (Micro-UX)**:
-   - Destaque para Área útil ($m^2$), Dormitórios, Banheiros e Vagas.
-   - Tag de Bairro e indicador de Aluguel vs Venda.
-   - Selo Prata/Platinum para "Imobiliária Credenciada" ou "Corretor com CRECI".
-   - CTA direto: *"Agendar Visita no WhatsApp"*.
+3. **Card Automotivo (Micro-UX de Veículos conforme `.ai/DESIGN.md`)**:
+   - Badge proeminente de Comparativo FIPE (ex: `R$ 2.500 abaixo da FIPE`).
+   - Spec Pill com Ano/Modelo, Quilometragem (Km), Câmbio e Combustível.
+   - Tag de Bairro de VCA e Selo de "Laudo Cautelar Aprovado" / Loja Física no Centro.
+   - CTA direto: *"Falar com Vendedor / Simular no WhatsApp"*.
 
 4. **Dados Demonstrativos Contextualizados (Mock)**:
-   - Coleção de imóveis reais em bairros de Vitória da Conquista com coordenadas simuladas no mapa.
+   - Coleção de veículos reais de seminovos e particulares em Vitória da Conquista com valores FIPE simulados.
 
 ## Acceptance criteria
-- Respeitar rigorosamente o `.ai/DESIGN.md` (regras específicas da categoria Imóveis).
-- O mapa e a lista sincronizam ao passar o mouse sobre o imóvel ou aplicar filtros.
-- Responsividade total com alternador Lista/Mapa no celular.
-- Filtros técnicos dinâmicos sem recarregamento de página.
+- Respeitar estritamente as regras de Micro-UX de Veículos do `.ai/DESIGN.md`.
+- Cálculo/badge visual de diferença para a Tabela FIPE em destaque no card.
+- Filtros dinâmicos em tempo real sem recarregamento da página.
+- Responsividade completa em celulares, tablets e desktops.
 
 ## Out of scope
-- Integração real com API de Mapas paga (usaremos Mapbox/Leaflet com mapas abertos ou componente mockup interativo de alta qualidade).
-- Conexão final com banco Supabase (usaremos mock estruturado conforme o schema de `DATA_MODEL.md`).
+- Integração em tempo real via API remota da Tabela FIPE (usaremos valores FIPE de referência mockados no objeto de dados conforme `DATA_MODEL.md`).
+- Simulação bancária real de financiamento (o CTA direciona para negociação/simulação via WhatsApp).
 
 ## Deliverables
-- Rota `/imoveis` com Split View.
-- Componentes de filtros técnicos, card de imóvel e container de mapa.
+- Rota `/veiculos` com Grid Responsivo.
+- Componentes de filtros automotivos, card de veículo com badge FIPE e gaveta mobile.
 - Documento `.ai/CURRENT_SPEC.md` atualizado.
