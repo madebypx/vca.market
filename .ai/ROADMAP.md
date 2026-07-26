@@ -17,18 +17,17 @@
    └── P0.4 Autenticação & Validação por WhatsApp/SMS OTP
                    │
                    ▼
-[ P1: Ferramentas de Conversão & Operação de Anúncios ] (EM ANDAMENTO)
-   ├── P1.1 Formulario Dinâmico de Publicação & Gestão (`/anunciar`)
+[ P1: Ferramentas de Conversão & Operação de Anúncios ] (CONCLUÍDO)
+   ├── P1.1 Formulário Dinâmico de Publicação & Gestão (`/anunciar`)
    ├── P1.2 Simulador de Financiamento Habitacional (Caixa / SFH VCA)
    ├── P1.3 Comparador Avançado Tabela FIPE para Veículos
    └── P1.4 Dashboard Analítico de Leads Conquista Pro
-
                    │
                    ▼
-[ P2: Inovação Hiperlocal & Escala Regional ]
-  ├── P2.1 "Pedido Aberto em VCA" (Mural de Demandas Locais)
-  ├── P2.2 PWA & Notificações Push de Leads no Celular
-  └── P2.3 Mapa de Calor de Valorização por Bairro de VCA
+[ P2: Inovação Hiperlocal & Escala Regional ] (EM ANDAMENTO)
+   ├── P2.1 "Procuro em VCA" (Mural de Demandas & Pedidos Abertos `/demandas`)
+   ├── P2.2 Gerador de Currículo Rápido via WhatsApp (`/vagas`)
+   └── P2.3 Inteligência de Mercado / Valorização por Bairro (`/inteligencia-vca`)
 ```
 
 ---
@@ -42,30 +41,25 @@
 
 ---
 
-## 🔴 P0 — Infraestrutura Crítica & Operacionalização (EM ANDAMENTO)
-> **Foco**: Migração de dados em mock para persistência real em banco de dados, storage de mídia, busca acelerada e autenticação.
-
-- [ ] **P0.1 Persistência de Dados (Supabase PostgreSQL)**: Modelagem relacional (`DATA_MODEL.md`) com Prisma/Kysely para CRUD real de anúncios e perfis.
-- [ ] **P0.2 Pipeline de Mídia & Upload**: Integração com Supabase Storage para upload de fotos com conversão automática WebP.
-- [ ] **P0.3 Motor de Busca Acelerado (Typesense)**: Indexação vetorial acelerada para buscas híbridas por palavra-chave, bairro e categoria em < 50ms.
-- [ ] **P0.4 Autenticação & Validação (WhatsApp/SMS OTP)**: Login sem senha e validação do selo de verificação de CPF (Particular) e CRECI (Pro).
+## 🟢 P0 — Infraestrutura Crítica & Operacionalização (CONCLUÍDO)
+- [x] **P0.1 Persistência de Dados (Supabase PostgreSQL)**: Modelagem relacional (`DATA_MODEL.md`) com CRUD real de anúncios e perfis.
+- [x] **P0.2 Pipeline de Mídia & Upload**: Integração com Supabase Storage para upload de fotos com conversão automática WebP.
+- [x] **P0.3 Motor de Busca Acelerado (Typesense)**: Indexação vetorial acelerada para buscas híbridas por palavra-chave, bairro e categoria em < 50ms.
+- [x] **P0.4 Autenticação & Validação (WhatsApp/SMS OTP)**: Login sem senha e validação do selo de verificação de CPF (Particular) e CRECI (Pro).
 
 ---
 
-## 🟡 P1 — Ferramentas de Conversão & Valor Agregado B2B/C2C
-> **Foco**: Aumentar a taxa de conversão em leads no WhatsApp e provar valor para assinantes Conquista Pro.
-
-- [ ] **P1.1 Simulador de Financiamento Habitacional (Caixa / VCA)**: Widget interativo para calcular parcela estimada de imóveis.
-- [ ] **P1.2 Comparador Tabela FIPE Aprofundado**: Ficha de veículos com desvalorização histórica e variação frente à FIPE local.
-- [ ] **P1.3 Gerador de Currículo Rápido (`/vagas`)**: Formatação de mini-currículo enviado diretamente no WhatsApp do contratante.
-- [ ] **P1.4 Dashboard Analítico Conquista Pro**: Relatório mensal de visualizações, horários de pico e cliques de WhatsApp por bairro.
+## 🟢 P1 — Ferramentas de Conversão & Operação de Anúncios (CONCLUÍDO)
+- [x] **P1.1 Formulário Dinâmico de Publicação (`/anunciar`)**: Fluxo em 5 passos com seleção sóbria de categorias conforme `DESIGN.md`.
+- [x] **P1.2 Simulador de Financiamento Habitacional (Caixa / VCA)**: Widget interativo para calcular parcela estimada de imóveis com disparo via WhatsApp.
+- [x] **P1.3 Comparador Tabela FIPE Aprofundado**: Ficha de veículos com desvalorização e destaque visual abaixo da FIPE.
+- [x] **P1.4 Dashboard Analítico Conquista Pro**: Relatório de visualizações e origem de leads no WhatsApp por bairro em `/perfil`.
 
 ---
 
-## 🟢 P2 — Inovação Hiperlocal & Escala Regional
+## 🟡 P2 — Inovação Hiperlocal & Escala Regional (EM ANDAMENTO)
 > **Foco**: Diferenciais competitivos exclusivos que garantem dominância sobre marketplaces nacionais.
 
-- [ ] **P2.1 Mural de Pedidos ("Procuro em VCA")**: Moral de demandas abertas onde moradores solicitam serviços/produtos e profissionais Pro respondem.
-- [ ] **P2.2 PWA & Notificações Push**: Instalação na tela inicial do celular e push instantâneo ao receber novos leads.
-- [ ] **P2.3 Inteligência de Mercado / Valorização por Bairro**: Painel público de tendência de preço por $m^2$ nos bairros de Vitória da Conquista.
-
+- [ ] **P2.1 Mural de Pedidos ("Procuro em VCA" - `/demandas`)**: Mural público onde moradores solicitam produtos/serviços/imóveis e anunciantes Pro respondem no WhatsApp.
+- [ ] **P2.2 Gerador de Currículo Rápido (`/vagas`)**: Formatação de mini-currículo qualificado enviado diretamente ao contratante.
+- [ ] **P2.3 Inteligência de Mercado / Valorização por Bairro (`/inteligencia-vca`)**: Painel público de tendência de preço por m² e mídias nos bairros de Vitória da Conquista.

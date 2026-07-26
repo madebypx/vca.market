@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ThemeToggle } from '@/components/layout/ThemeToggle';
 
 export function Header() {
   return (
@@ -41,16 +42,19 @@ export function Header() {
             <Link href="/vagas" className="hover:text-[var(--color-primary)] dark:hover:text-white transition-colors">Vagas</Link>
           </nav>
 
+          <ThemeToggle />
+
           <Link href="/anunciar" className="hidden md:flex bg-[var(--color-primary)] hover:bg-slate-800 text-white dark:bg-white dark:text-[#0F172A] dark:hover:bg-slate-200 px-4 py-2 rounded-md text-sm font-semibold transition-colors">
             + Anunciar
           </Link>
 
-          {/* User Menu / Mobile Hamburger Trigger */}
-          <button className="flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition-colors">
+          {/* User Menu Link */}
+          <Link href="/perfil" className="flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition-colors">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-          </button>
+          </Link>
         </div>
       </div>
     </header>
   );
 }
+

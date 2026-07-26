@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { MobileDock } from "@/components/layout/MobileDock";
 import { Footer } from "@/components/layout/Footer";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -21,14 +22,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning>
       <body className={`${inter.variable} antialiased min-h-screen flex flex-col`}>
-        <Header />
-        <main className="flex-1 pb-16 md:pb-0 relative z-0">
-          {children}
-        </main>
-        <MobileDock />
-        <Footer />
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Header />
+          <main className="flex-1 pb-16 md:pb-0 relative z-0">
+            {children}
+          </main>
+          <MobileDock />
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

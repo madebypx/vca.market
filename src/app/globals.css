@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
 
@@ -10,21 +12,20 @@
   --color-badge-gold: #F59E0B;
   
   --color-background-light: #F8FAFC;
-  --color-background-dark: #020617;
+  --color-background-dark: #090D16;
   --color-surface-light: #FFFFFF;
   --color-surface-dark: #0F172A;
 }
 
 @layer base {
   :root {
-    --background: var(--color-background-light);
-    --foreground: var(--color-primary);
+    --background: #F8FAFC;
+    --foreground: #0F172A;
   }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --background: var(--color-background-dark);
-      --foreground: #F8FAFC;
-    }
+
+  .dark {
+    --background: #090D16;
+    --foreground: #F8FAFC;
   }
 
   body {
