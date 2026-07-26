@@ -1,36 +1,39 @@
-# CURRENT_SPEC.md — Sprint P2: Inovação Hiperlocal & Escala Regional
+# CURRENT_SPEC.md — FASE 6 / Sprint P4: Gamificação, Reputação & Segurança Anti-Fraude
 
 ## Active task
-Inovação Hiperlocal & Escala Regional (P2.1 a P2.3)
+Gamificação, Reputação & Segurança Anti-Fraude (P4.1 a P4.4) — Etapa Final do MVP
 
 ## Goal
-Implementar funcionalidades exclusivas de diferenciação regional que garantem dominância sobre marketplaces genéricos nacionais: o Mural de Pedidos Abertos ("Procuro em VCA" em `/demandas`), o Gerador de Mini-Currículo Direto via WhatsApp para a vertical `/vagas` e o Painel de Inteligência de Mercado por Bairro (`/inteligencia-vca`).
+Implementar o sistema de avaliações auditadas dos vendedores de Vitória da Conquista, badges gamificados de reputação e confiança (*Morador Bronze/Prata/Ouro*, *Vendedor Recomendado*), botão *"Denunciar Anúncio"* com modal de moderação anti-fraude e checklist final para deploy do MVP de produção.
 
 ## Scope
 
-### 1. P2.1 — Mural de Pedidos Abertos ("Procuro em VCA" - `/demandas`)
-- Rota pública `/demandas` onde compradores/moradores publicam solicitações de busca (ex: *"Procuro casa para alugar no Candeias até R$ 2.000"*, *"Preciso de técnico de geladeira no Bairro Brasil para hoje"*).
-- Interface de cartões compactos com tags por bairro de Conquista, orçamento estimado e data de expiração.
-- Ação *"Atender Pedido via WhatsApp"* para anunciantes e prestadores qualificados.
-- Modal de criação rápida de demanda com 3 campos simples.
+### 1. P4.1 — Sistema de Avaliações Auditadas (`/anunciante/[id]/avaliar`)
+- Modal de avaliação por estrelas (1 a 5) com depoimento escrito e tag de negociação confirmada via WhatsApp.
+- Exibição de média calculada de estrelas no Hotsite do Anunciante (`/anunciante/[id]`) e nos cards das listagens.
 
-### 2. P2.2 — Gerador de Currículo Rápido (`/vagas`)
-- Modal interativo na listagem e detalhe de vagas para candidatos criarem um mini-currículo padronizado.
-- Geração automática de texto formatado e estruturado para envio direto no WhatsApp do recrutador/empresa.
+### 2. P4.2 — Gamificação & Badges de Confiança VCA
+- Pontuação dinâmica de reputação baseada em: tempo de conta, verificação de documento (CPF/CRECI), média de avaliações e anúncios ativos.
+- Badges visuais: *★ Vendedor Ouro*, *Morador Verificado*, *Resposta em < 15 min*.
 
-### 3. P2.3 — Inteligência de Mercado / Valorização por Bairro (`/inteligencia-vca`)
-- Página pública de analytics regional exibindo valores médios do m² imobiliário, variação FIPE de veículos por bairro e categorias de maior demanda em Vitória da Conquista.
+### 3. P4.3 — Camada de Segurança & Denúncia Anti-Fraude
+- Botão *"Denunciar Anúncio"* presente em todos os anúncios e páginas de detalhe.
+- Modal de denúncia com categorias de motivo (ex: *Preço Irrealista/Golpe*, *Anúncio Duplicado*, *Telefone Falso*, *Produto Vendido*).
+
+### 4. P4.4 — Readiness Checklist & Produção
+- Auditoria final de build e tipos.
 
 ## Acceptance criteria
-- Rota `/demandas` permitindo a criação e visualização de pedidos de compra/contratação por bairro em VCA.
-- Envio de candidatura formatada com currículo via WhatsApp na vertical de `/vagas`.
-- Painel `/inteligencia-vca` renderizando gráficos e dados comparativos de bairros.
-- `npm run build` compilando sem erros de TypeScript ou lints.
+- Modal de avaliação enviando depoimento e atualizando média no perfil do anunciante.
+- Exibição de badges de reputação em todas as 5 verticais de mercado.
+- Modal de denúncia operacional disparando alerta de segurança.
+- `npm run build` compilando sem erros de TypeScript.
 
 ## Out of scope nesta Sprint
-- Pagamento automático de comissão por lead gerado no mural de demandas (gerenciamento direto via contato profissional).
+- Moderação por inteligência artificial em tempo real (utilização de moderação baseada em denúncias de usuários e regras de validação).
 
 ## Deliverables
-- Rota `/app/demandas/page.tsx` e componentes em `src/components/demandas/`.
-- Componente `CurriculoQuickGeneratorModal.tsx` em `src/components/vagas/`.
-- Rota `/app/inteligencia-vca/page.tsx` e estatísticas em `src/components/inteligencia/`.
+- `src/components/anunciante/ReviewModal.tsx`
+- `src/components/common/TrustBadge.tsx`
+- `src/components/common/ReportListingModal.tsx`
+- Atualização em `src/app/anunciante/[id]/page.tsx` e cards das verticais.

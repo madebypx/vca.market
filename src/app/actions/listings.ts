@@ -87,6 +87,36 @@ export async function createListing(listingData: Omit<Listing, 'id' | 'created_a
   return data as Listing;
 }
 
+export async function updateListingStatus(id: string, status: 'active' | 'paused' | 'sold') {
+  const supabase = await createClient();
+  const { error } = await supabase.from('listings').update({ status }).eq('id', id);
+
+  if (error) {
+    throw new Error(`Erro ao atualizar status do anúncio: ${error.message}`);
+  }
+
+  revalidatePath('/perfil');
+  revalidatePath('/');
+}
+
+export async function updateListing(id: string, listingData: Partial<Listing>) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from('listings')
+    .update(listingData)
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error) {
+    throw new Error(`Erro ao editar anúncio: ${error.message}`);
+  }
+
+  revalidatePath('/perfil');
+  revalidatePath('/[category]', 'page');
+  return data as Listing;
+}
+
 export async function deleteListing(id: string) {
   const supabase = await createClient();
   const { error } = await supabase.from('listings').delete().eq('id', id);
@@ -95,8 +125,10 @@ export async function deleteListing(id: string) {
     throw new Error(`Erro ao deletar anúncio: ${error.message}`);
   }
 
+  revalidatePath('/perfil');
   revalidatePath('/');
 }
+
 
 function getMockListings(category?: CategoryId): Listing[] {
   const adaptImoveis = MOCK_IMOVEIS.map((item) => ({

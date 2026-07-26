@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { UserListing, UserRole } from '@/types/user';
 
 interface UserListingsTabProps {
@@ -46,12 +47,12 @@ export function UserListingsTab({ listings, role }: UserListingsTabProps) {
             </div>
           )}
 
-          <button
-            disabled={isCommon || (isParticular && activeImoveisCount >= 1)}
-            className="bg-[var(--color-accent-green)] hover:bg-emerald-600 disabled:opacity-40 disabled:cursor-not-allowed text-slate-950 font-extrabold text-xs px-4 py-2.5 rounded-xl transition-all shadow-xs"
+          <Link
+            href="/anunciar"
+            className="bg-[var(--color-accent-green)] hover:bg-emerald-600 text-slate-950 font-extrabold text-xs px-4 py-2.5 rounded-xl transition-all shadow-xs"
           >
             + Criar Novo Anúncio
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -114,9 +115,12 @@ export function UserListingsTab({ listings, role }: UserListingsTabProps) {
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <button className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-xs font-bold transition-colors">
+                  <Link
+                    href={`/anuncios/${item.id}/editar`}
+                    className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-xs font-bold transition-colors"
+                  >
                     Editar
-                  </button>
+                  </Link>
                   <button className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-xs font-bold transition-colors">
                     {item.status === 'active' ? 'Pausar' : 'Ativar'}
                   </button>
@@ -129,3 +133,4 @@ export function UserListingsTab({ listings, role }: UserListingsTabProps) {
     </div>
   );
 }
+
