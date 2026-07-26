@@ -5,6 +5,8 @@ import { ImovelGallery } from '@/components/imoveis/ImovelGallery';
 import { ImovelSpecs } from '@/components/imoveis/ImovelSpecs';
 import { ImovelContactSidebar } from '@/components/imoveis/ImovelContactSidebar';
 import { ImovelCard } from '@/components/imoveis/ImovelCard';
+import { SimuladorFinanciamento } from '@/components/imoveis/SimuladorFinanciamento';
+
 
 interface ImovelDetailPageProps {
   params: Promise<{
@@ -83,6 +85,12 @@ export default async function ImovelDetailPage({ params }: ImovelDetailPageProps
               </h2>
               <ImovelSpecs imovel={imovel} />
             </div>
+
+            {/* Simulador de Financiamento Habitacional */}
+            {imovel.transactionType === 'venda' && (
+              <SimuladorFinanciamento propertyPrice={imovel.price} listingTitle={imovel.title} />
+            )}
+
 
             {/* Description */}
             {imovel.description && (

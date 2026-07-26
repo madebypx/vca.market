@@ -10,18 +10,19 @@
 [ Frontend Micro-UX & Views (Concluído) ]
                    │
                    ▼
-[ P0: Infraestrutura Crítica & Operacionalização ] (EM ANDAMENTO)
-  ├── P0.1 Persistência de Dados (Supabase PostgreSQL + Prisma/Kysely)
-  ├── P0.2 Upload de Mídia & Pipeline WebP (Supabase Storage)
-  ├── P0.3 Buscador Vetorial & Híbrido (< 50ms com Typesense)
-  └── P0.4 Autenticação & Validação por WhatsApp/SMS OTP
+[ P0: Infraestrutura Crítica & Operacionalização ] (CONCLUÍDO)
+   ├── P0.1 Persistência de Dados (Supabase PostgreSQL)
+   ├── P0.2 Upload de Mídia & Pipeline WebP (Supabase Storage)
+   ├── P0.3 Buscador Vetorial & Híbrido (< 50ms com Typesense)
+   └── P0.4 Autenticação & Validação por WhatsApp/SMS OTP
                    │
                    ▼
-[ P1: Ferramentas de Conversão & Valor Agregado B2B/C2C ]
-  ├── P1.1 Simulador de Financiamento Habitacional (Caixa/SFH em VCA)
-  ├── P1.2 Comparador Avançado Tabela FIPE para Veículos
-  ├── P1.3 Gerador de Currículo Rápido via WhatsApp (`/vagas`)
-  └── P1.4 Dashboard Analítico de Leads para Contas Conquista Pro
+[ P1: Ferramentas de Conversão & Operação de Anúncios ] (EM ANDAMENTO)
+   ├── P1.1 Formulario Dinâmico de Publicação & Gestão (`/anunciar`)
+   ├── P1.2 Simulador de Financiamento Habitacional (Caixa / SFH VCA)
+   ├── P1.3 Comparador Avançado Tabela FIPE para Veículos
+   └── P1.4 Dashboard Analítico de Leads Conquista Pro
+
                    │
                    ▼
 [ P2: Inovação Hiperlocal & Escala Regional ]

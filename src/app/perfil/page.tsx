@@ -8,6 +8,8 @@ import { UserFavoritesTab } from '@/components/perfil/UserFavoritesTab';
 import { UserListingsTab } from '@/components/perfil/UserListingsTab';
 import { UserLeadsTab } from '@/components/perfil/UserLeadsTab';
 import { ProUpgradeBanner } from '@/components/perfil/ProUpgradeBanner';
+import { AnalyticsDashboard } from '@/components/perfil/AnalyticsDashboard';
+
 
 export default function PerfilPage() {
   const [activeRole, setActiveRole] = useState<UserRole>('particular');
@@ -93,8 +95,12 @@ export default function PerfilPage() {
         )}
 
         {activeTab === 'leads' && activeRole !== 'common' && (
-          <UserLeadsTab role={activeRole} />
+          <div className="space-y-8">
+            {activeRole === 'pro' && <AnalyticsDashboard />}
+            <UserLeadsTab role={activeRole} />
+          </div>
         )}
+
 
         {activeTab === 'settings' && (
           <div className="bg-white dark:bg-slate-800 rounded-3xl p-6 border border-slate-200 dark:border-slate-700/60 shadow-xs flex flex-col gap-4 my-4">
