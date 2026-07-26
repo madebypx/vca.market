@@ -23,13 +23,13 @@
 
 ---
 
-## Phase 2: Category Verticals & Discovery Layer
-- [ ] **Imóveis Vertical (`/imoveis`)**: Interactive Map + Split List View, filter by neighborhood, $m^2$, beds, and CRECI badge.
-- [ ] **Veículos Vertical (`/veiculos`)**: Grid View with FIPE price comparison badge, Km, transmission, and Cautelar approval.
-- [ ] **Serviços Vertical (`/servicos`)**: Portfolio Grid, star rating reviews, "Atende em Domicílio" tag.
-- [ ] **Comércio Local Vertical (`/comercio`)**: Retail Product Grid with physical store pickup tags.
-- [ ] **Vagas Vertical (`/vagas`)**: Compact List View with salary range and work model badges.
-- [ ] **Listing Detail View (`/anuncio/[id]`)**: Dynamic technical spec box per category + Sticky WhatsApp CTA.
+## Phase 2: Category Verticals & Discovery Layer (COMPLETED)
+- [x] **Imóveis Vertical (`/imoveis`)**: Interactive Map + Split List View, filter by neighborhood, $m^2$, beds, and CRECI badge.
+- [x] **Veículos Vertical (`/veiculos`)**: Grid View with FIPE price comparison badge, Km, transmission, and Cautelar approval.
+- [x] **Serviços Vertical (`/servicos`)**: Portfolio Grid, star rating reviews, "Atende em Domicílio" tag.
+- [x] **Comércio Local Vertical (`/comercio`)**: Retail Product Grid with physical store pickup tags.
+- [x] **Vagas Vertical (`/vagas`)**: Compact List View with salary range and work model badges.
+- [x] **Universal Navigation Shell**: Integrated header and mobile dock supporting all 5 business verticals.
 
 ---
 
