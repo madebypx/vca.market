@@ -1,33 +1,41 @@
-# CURRENT_SPEC.md — Busca Preditiva Instantânea & Central Admin de Moderação Anti-Fraude
+# CURRENT_SPEC.md — Ecossistema Completo de Conta, Dropdown do Header & Central de Ajuda
 
 ## Active task
-Implementação da Busca Preditiva Instantânea (`/api/search` + `HeaderSearchModal.tsx`) e da Central Admin de Moderação Anti-Fraude (`/admin/moderacao`)
+Implementação do Dropdown de Perfil do Header (`HeaderProfileDropdown.tsx`), Modal de Troca de Conta (`SwitchAccountModal.tsx`) e Central de Ajuda & Suporte VCA (`/ajuda`)
 
 ## Goal
-Elevar a capacidade de busca da plataforma com autocompletar inteligente que responde em tempo real (< 50ms) entre todas as 5 verticais de Vitória da Conquista, além de disponibilizar o painel administrativo de moderação para tratamento de denúncias de anúncios suspeitos e auditoria de selos (CPF/CRECI).
+Proporcionar uma experiência de gerenciamento de conta fluida e de alto nível, permitindo que os moradores e anunciantes de Vitória da Conquista acessem rapidamente seu painel, configurações, troca de perfil, suporte e encerramento de sessão direto do cabeçalho.
 
 ## Scope
 
-### 1. Busca Preditiva Instantânea (`HeaderSearchModal.tsx` & `/api/search`)
-- Modal de pesquisa acionado pela barra global no Header.
-- Autocompletar com sugestões agrupadas por vertical (Imóveis, Veículos, Serviços, Comércio, Vagas) e por bairros (Candeias, Recreio, Centro, Bairro Brasil, etc.).
-- Filtro imediato por tipo de transação (Venda vs Aluguel).
+### 1. Menu Dropdown de Perfil no Header (`HeaderProfileDropdown.tsx`)
+- Substituição do ícone simples no `Header.tsx` por um dropdown interativo de avatar.
+- Exibição de foto, nome do usuário e badge de status (*Morador Verificado* vs *Conquista Pro*).
+- Opções do menu:
+  - `📊 Meu Painel & Anúncios` (`/perfil`)
+  - `⚙️ Configurações da Conta` (`/perfil/configuracoes`)
+  - `👥 Trocar de Conta` (Abre o `SwitchAccountModal`)
+  - `❓ Central de Ajuda & FAQ VCA` (`/ajuda`)
+  - `🛡️ Painel Admin` (`/admin/moderacao` - visível para gestores)
+  - `🚪 Sair da Conta` (Aciona o encerramento de sessão)
 
-### 2. Central Admin de Moderação Anti-Fraude (`/admin/moderacao`)
-- Painel administrativo reservado para moderadores do Conquista Market.
-- Lista de anúncios denunciados por moradores com detalhes de motivo (*Preço Golpe*, *Telefone Inexistente*, *Dados Falsos*).
-- Ações rápidas: *"Manter Anúncio"*, *"Suspender Anúncio"* e *"Bloquear Anunciante"*.
-- Fila de aprovação de selos de verificação de documentos (CPF e CRECI-BA).
+### 2. Modal de Troca Rápida de Conta (`SwitchAccountModal.tsx`)
+- Modal permitindo alternar entre perfis salvos na sessão local (ex: *Perfil Particular* vs *Perfil Imobiliário Pro*) ou entrar com outra conta.
+
+### 3. Central de Ajuda & FAQ VCA (`/ajuda`)
+- Página com perguntas frequentes sobre publicação de anúncios em Conquista, selos de verificação de documentos (CPF e CRECI), segurança anti-fraude e suporte direto via WhatsApp.
 
 ## Acceptance criteria
-- Modal de busca operacional no Header respondendo a pesquisas em tempo real.
-- Rota `/admin/moderacao` permitindo gerenciar denúncias e alterar status de listagens.
+- Dropdown de perfil responsivo no Header com fecho ao clicar fora (`outside click`).
+- Modal de troca de conta funcional permitindo simulação e login com novos perfis.
+- Rota `/ajuda` operacional com FAQ expansível.
 - `npm run build` compilando 100% limpo com 0 erros de TypeScript.
 
 ## Out of scope nesta Sprint
-- Cobrança automatizada de planos pagos via gateway de cartão de crédito.
+- Integração com provedor de Single Sign-On terceirizado (Google/Facebook SDK).
 
 ## Deliverables
-- `src/components/layout/HeaderSearchModal.tsx`
-- `src/app/api/search/route.ts`
-- `src/app/admin/moderacao/page.tsx`
+- `src/components/layout/HeaderProfileDropdown.tsx`
+- `src/components/perfil/SwitchAccountModal.tsx`
+- `src/app/ajuda/page.tsx`
+- `src/components/layout/Header.tsx` (atualizado)
