@@ -20,6 +20,8 @@
 * **[2026-07-26] Inovação Hiperlocal & Escala Regional (Sprint P2 Concluída):** Implementados o Mural de Pedidos Abertos ("Procuro em VCA" em `/demandas`), o Gerador de Mini-Currículo Rápido via WhatsApp na vertical `/vagas`, a Inteligência Regional de Mercado por Bairro (`/inteligencia-vca`) e o Sistema Global de Dark e Light Mode com `next-themes` e TailwindCSS v4.
 * **[2026-07-26] Operação de Contas, Anúncios & Moderação Anti-Fraude (Sprints P3 & P4 — Conclusão do MVP):** Implementados o fluxo de login/cadastro (`/login`, `/cadastro`), a página de edição de anúncios (`/anuncios/[id]/editar`), a central de configurações e verificação de perfil (`/perfil/configuracoes`), o sistema de avaliações auditadas por estrelas (`ReviewModal`), os selos de reputação comunitária (`TrustBadge`) e o modal de denúncia anti-fraude (`ReportListingModal`), finalizando 100% o MVP de produção.
 * **[2026-07-26] Experiências Temáticas de Detalhamento por Vertical & Mapa Leaflet Real:** Implementadas páginas de detalhes dedicadas e altamente customizadas para as 5 verticais de mercado (`/imoveis/[id]`, `/veiculos/[id]`, `/servicos/[id]`, `/comercio/[id]`, `/vagas/[id]`), com destaque para o Dossiê de Manutenção & Saúde do Veículo, Ficha FIPE, Galeria de Portfólio de Serviços, Polo de Retirada/Motoboy e o Mapa Geográfico Real estilo Airbnb de Vitória da Conquista com Leaflet (`/imoveis`).
+* **[2026-07-26] Busca Preditiva, Moderação Admin & Prontidão de Produção:** Implementados o modal de busca preditiva instantânea no Header (`HeaderSearchModal`, `/api/search`), o painel de moderação administrativa (`/admin/moderacao`), os clientes Supabase browser/server (`@supabase/ssr`) e o guia oficial de lançamento de produção (`DEPLOYMENT_GUIDE.md`).
+
 
 
 

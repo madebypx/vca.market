@@ -5,7 +5,7 @@ export async function createClient() {
   const cookieStore = await cookies();
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-anon-key';
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-key';
 
   return createServerClient(supabaseUrl, supabaseAnonKey, {
     cookies: {
@@ -18,8 +18,7 @@ export async function createClient() {
             cookieStore.set(name, value, options)
           );
         } catch {
-          // O método setAll pode ter falhado se chamado a partir de um Server Component.
-          // Isso pode ser ignorado se você tiver um middleware atualizando sessões.
+          // Handled when called from Server Components
         }
       },
     },
