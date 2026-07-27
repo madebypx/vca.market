@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { VagaItem } from '@/data/mockVagas';
 import { CurriculoQuickGeneratorModal } from './CurriculoQuickGeneratorModal';
 
@@ -35,9 +36,12 @@ export function VagaCard({ vaga }: VagaCardProps) {
           </div>
 
           {/* Title */}
-          <h3 className="font-bold text-slate-900 dark:text-white text-base md:text-lg leading-snug mb-1 group-hover:text-[var(--color-trust-blue)] transition-colors">
-            {vaga.title}
-          </h3>
+          <Link href={`/vagas/${vaga.id}`}>
+            <h3 className="font-bold text-slate-900 dark:text-white text-base md:text-lg leading-snug mb-1 group-hover:text-[var(--color-trust-blue)] transition-colors">
+              {vaga.title}
+            </h3>
+          </Link>
+
 
           {/* Company & Verification */}
           <div className="flex items-center gap-2 mb-3">

@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { ProdutoItem } from '@/data/mockComercio';
 
 interface ProdutoCardProps {
@@ -31,7 +32,7 @@ export function ProdutoCard({ produto }: ProdutoCardProps) {
     <div className="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700/60 shadow-xs hover:shadow-lg transition-all duration-200 flex flex-col justify-between">
       <div>
         {/* Product Image Container */}
-        <div className="relative aspect-square w-full overflow-hidden bg-slate-100 dark:bg-slate-700">
+        <Link href={`/comercio/${produto.id}`} className="relative block aspect-square w-full overflow-hidden bg-slate-100 dark:bg-slate-700">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={produto.imageUrl}
@@ -56,7 +57,7 @@ export function ProdutoCard({ produto }: ProdutoCardProps) {
           <div className="absolute bottom-3 left-3 bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-semibold px-2.5 py-1 rounded-full border border-white/10">
             🏬 Retirada em {produto.pickupLocation}
           </div>
-        </div>
+        </Link>
 
         {/* Content Body */}
         <div className="p-4">
@@ -67,9 +68,12 @@ export function ProdutoCard({ produto }: ProdutoCardProps) {
           </div>
 
           {/* Title */}
-          <h3 className="font-bold text-slate-900 dark:text-white text-sm leading-snug line-clamp-2 mb-2 group-hover:text-[var(--color-trust-blue)] transition-colors">
-            {produto.title}
-          </h3>
+          <Link href={`/comercio/${produto.id}`}>
+            <h3 className="font-bold text-slate-900 dark:text-white text-sm leading-snug line-clamp-2 mb-2 group-hover:text-[var(--color-trust-blue)] transition-colors">
+              {produto.title}
+            </h3>
+          </Link>
+
 
           {/* Price Tag */}
           <div className="flex items-baseline gap-2 mb-3">

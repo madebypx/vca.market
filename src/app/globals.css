@@ -34,3 +34,144 @@
     font-family: var(--font-sans);
   }
 }
+
+/* Airbnb-style Interactive Map Markers */
+.custom-leaflet-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+.airbnb-pill-marker {
+  background-color: #ffffff;
+  color: #0f172a;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 1.5px solid #cbd5e1;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.airbnb-pill-marker:hover,
+.airbnb-pill-marker.active {
+  background-color: #0f172a;
+  color: #ffffff;
+  border-color: #2563eb;
+  transform: scale(1.18);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.4);
+  z-index: 1000;
+}
+
+.dark .airbnb-pill-marker {
+  background-color: #0f172a;
+  color: #ffffff;
+  border-color: #334155;
+}
+
+.dark .airbnb-pill-marker:hover,
+.dark .airbnb-pill-marker.active {
+  background-color: #2563eb;
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+/* Custom Popup Card */
+.leaflet-popup-content-wrapper {
+  padding: 0 !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25) !important;
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  width: 220px !important;
+}
+
+.vca-map-popup {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.dark .vca-map-popup {
+  background-color: #0f172a;
+  color: #ffffff;
+}
+
+.popup-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 110px;
+}
+
+.popup-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.popup-info {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.popup-badge {
+  font-size: 9px;
+  font-weight: 800;
+  color: #2563eb;
+  text-transform: uppercase;
+}
+
+.popup-title {
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #0f172a;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.dark .popup-title {
+  color: #ffffff;
+}
+
+.popup-price {
+  font-size: 13px;
+  font-weight: 900;
+  color: #059669;
+  margin-top: 2px;
+}
+
+.popup-specs {
+  font-size: 10px;
+  color: #64748b;
+}
+
+.popup-cta {
+  display: block;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: #0f172a;
+  padding: 6px;
+  border-radius: 8px;
+  margin-top: 6px;
+  text-decoration: none;
+}
+
+.popup-cta:hover {
+  background-color: #2563eb;
+}
+

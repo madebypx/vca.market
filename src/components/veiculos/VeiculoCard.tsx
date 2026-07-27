@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { VeiculoItem } from '@/data/mockVeiculos';
 
 interface VeiculoCardProps {
@@ -37,7 +38,7 @@ export function VeiculoCard({ veiculo }: VeiculoCardProps) {
     <div className="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700/60 shadow-xs hover:shadow-lg transition-all duration-200 flex flex-col justify-between">
       <div>
         {/* Image Container */}
-        <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100 dark:bg-slate-700">
+        <Link href={`/veiculos/${veiculo.id}`} className="relative block aspect-[16/10] w-full overflow-hidden bg-slate-100 dark:bg-slate-700">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={veiculo.imageUrl}
@@ -69,7 +70,7 @@ export function VeiculoCard({ veiculo }: VeiculoCardProps) {
               🛡️ Cautelar OK
             </div>
           )}
-        </div>
+        </Link>
 
         {/* Content Body */}
         <div className="p-4">
@@ -82,9 +83,11 @@ export function VeiculoCard({ veiculo }: VeiculoCardProps) {
           </div>
 
           {/* Title */}
-          <h3 className="font-bold text-slate-900 dark:text-white text-sm leading-snug line-clamp-2 mb-2 group-hover:text-[var(--color-trust-blue)] transition-colors">
-            {veiculo.title}
-          </h3>
+          <Link href={`/veiculos/${veiculo.id}`}>
+            <h3 className="font-bold text-slate-900 dark:text-white text-sm leading-snug line-clamp-2 mb-2 group-hover:text-[var(--color-trust-blue)] transition-colors">
+              {veiculo.title}
+            </h3>
+          </Link>
 
           {/* Price */}
           <div className="text-xl font-extrabold text-[var(--color-primary)] dark:text-emerald-400 mb-3">
@@ -126,3 +129,4 @@ export function VeiculoCard({ veiculo }: VeiculoCardProps) {
     </div>
   );
 }
+

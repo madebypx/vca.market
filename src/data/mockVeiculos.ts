@@ -16,12 +16,43 @@ export interface VeiculoItem {
   verificationTier: 'gold' | 'silver' | 'platinum';
   sellerType: 'loja' | 'particular';
   imageUrl: string;
+
+  // Atributos Estendidos para Experiência Automotiva Dedicada
+  color?: string;
+  plateEnd?: string;
+  ipvaStatus?: string;
+  singleOwner?: boolean;
+  dealerWarranty?: boolean;
+
+  // Dossiê de Manutenção & Saúde do Veículo
+  lastOilChange?: {
+    date: string;
+    km: number;
+    specification: string;
+  };
+  lastRevision?: {
+    date: string;
+    km: number;
+    location: string;
+    specification?: string;
+  };
+
+  tiresCondition?: string;
+  batteryStatus?: string;
+
+  // Desempenho & Recursos de Série
+  engineSpec?: string;
+  horsepower?: string;
+  urbanConsumption?: string;
+  highwayConsumption?: string;
+  featuresList?: string[];
+  galleryImages?: string[];
 }
 
 export const MOCK_VEICULOS: VeiculoItem[] = [
   {
     id: 'vec-001',
-    title: 'Toyota Corolla XEi 2.0 Flex 16V Automatico',
+    title: 'Toyota Corolla XEi 2.0 Flex 16V Automático',
     vehicleType: 'carro',
     brand: 'Toyota',
     model: 'Corolla',
@@ -37,6 +68,40 @@ export const MOCK_VEICULOS: VeiculoItem[] = [
     verificationTier: 'gold',
     sellerType: 'loja',
     imageUrl: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80',
+    color: 'Prata Nevoa',
+    plateEnd: 'Final 8 — IPVA 2026 Pago',
+    singleOwner: true,
+    dealerWarranty: true,
+    lastOilChange: {
+      date: '10/05/2026',
+      km: 42500,
+      specification: 'Óleo 5W30 Sintético Toyota + Filtro de Ar e Lubrificante',
+    },
+    lastRevision: {
+      date: '15/03/2026',
+      km: 40000,
+      specification: 'Revisão dos 40k realizada na Concessionária Toyota VCA',
+      location: 'Concessionária Diamantina VCA',
+    },
+    tiresCondition: 'Pneus Michelin 85% de borracha útil (Trocados em Jan/2026)',
+    batteryStatus: 'Bateria Moura 60Ah na Garantia de Fábrica até Mar/2027',
+    engineSpec: '2.0 Dual VVT-iE 16V Flex',
+    horsepower: '177 cv (Etanol) / 169 cv (Gasolina)',
+    urbanConsumption: '11,6 km/l (Gasolina)',
+    highwayConsumption: '13,9 km/l (Gasolina)',
+    featuresList: [
+      'Câmbio Direct Shift CVT 10 Marchas',
+      'Central Multimídia Toyota Play 8" com CarPlay/Android Auto',
+      '7 Airbags de Série & Controle de Estabilidade VSC',
+      'Ar-Condicionado Digital Automático',
+      'Rodas de Liga Leve Aro 17 Dual Tone',
+      'Faróis em LED com DRL Diurno',
+    ],
+    galleryImages: [
+      'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
+    ],
   },
   {
     id: 'vec-002',
@@ -56,6 +121,37 @@ export const MOCK_VEICULOS: VeiculoItem[] = [
     verificationTier: 'platinum',
     sellerType: 'loja',
     imageUrl: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80',
+    color: 'Preto Carbon',
+    plateEnd: 'Final 5 — IPVA 2026 Pago',
+    singleOwner: true,
+    dealerWarranty: true,
+    lastOilChange: {
+      date: '20/06/2026',
+      km: 27000,
+      specification: 'Óleo 0W20 Mopar + Filtros de Cabine e Motor',
+    },
+    lastRevision: {
+      date: '20/06/2026',
+      km: 27000,
+      specification: 'Revisão dos 30k antecipada na Jeep Conquista',
+      location: 'Jeep Conquista VIP',
+    },
+    tiresCondition: 'Pneus Pirelli Scorpion 90% de borracha (Originais)',
+    batteryStatus: 'Bateria Heliar EFB Start-Stop na Garantia',
+    engineSpec: 'T270 1.3 Turbo Flex 185 cv',
+    horsepower: '185 cv (Etanol)',
+    urbanConsumption: '10,5 km/l (Gasolina)',
+    highwayConsumption: '12,8 km/l (Gasolina)',
+    featuresList: [
+      'Painel 100% Digital HD 10.25"',
+      'Central Multimídia Uconnect 10.1" Sem Fio',
+      'Bancos em Couro Preto de Fábrica',
+      'Rodas de Liga Leve Aro 18"',
+    ],
+    galleryImages: [
+      'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
+    ],
   },
   {
     id: 'vec-003',
@@ -75,43 +171,27 @@ export const MOCK_VEICULOS: VeiculoItem[] = [
     verificationTier: 'silver',
     sellerType: 'particular',
     imageUrl: 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    id: 'vec-004',
-    title: 'Fiat Strada Freedom 1.3 Flex Cabine Plus',
-    vehicleType: 'utilitario',
-    brand: 'Fiat',
-    model: 'Strada',
-    yearModel: '2022/2023',
-    price: 78500,
-    fipeReferencePrice: 81000,
-    mileageKm: 52000,
-    transmission: 'manual',
-    fuel: 'flex',
-    hasCautelarApproved: true,
-    neighborhood: 'Recreio',
-    sellerName: 'Auto Conquista Multimarcas',
-    verificationTier: 'gold',
-    sellerType: 'loja',
-    imageUrl: 'https://images.unsplash.com/photo-1559416523-140ddc3d238c?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    id: 'vec-005',
-    title: 'Volkswagen Polo Comfortline 1.0 TSI Automático',
-    vehicleType: 'carro',
-    brand: 'Volkswagen',
-    model: 'Polo',
-    yearModel: '2020/2020',
-    price: 68900,
-    fipeReferencePrice: 68500,
-    mileageKm: 61000,
-    transmission: 'automatico',
-    fuel: 'flex',
-    hasCautelarApproved: false,
-    neighborhood: 'Boa Vista',
-    sellerName: 'Carlos Particular',
-    verificationTier: 'silver',
-    sellerType: 'particular',
-    imageUrl: 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=800&q=80',
+    color: 'Vermelho Victory',
+    plateEnd: 'Final 2 — IPVA 2026 Pago',
+    singleOwner: true,
+    lastOilChange: {
+      date: '02/07/2026',
+      km: 12000,
+      specification: 'Óleo Honda 10W30 + Filtro de Óleo Magnetron',
+    },
+    tiresCondition: 'Pneus Pirelli Diablo Rosso II Novíssimos',
+    engineSpec: '471cc Bi-cilíndrico DOHC 50,4 cv',
+    horsepower: '50,4 cv',
+    urbanConsumption: '23,5 km/l',
+    highwayConsumption: '27,0 km/l',
+    featuresList: [
+      'Freios ABS de Duplo Canal',
+      'Painel Digital LCD com Shift Light',
+      'Iluminação Full LED',
+      'Embreagem Deslizante e Assistida',
+    ],
+    galleryImages: [
+      'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=1200&q=80',
+    ],
   },
 ];

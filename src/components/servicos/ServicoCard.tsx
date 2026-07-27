@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { ServicoItem } from '@/data/mockServicos';
 
 interface ServicoCardProps {
@@ -17,7 +18,7 @@ export function ServicoCard({ servico }: ServicoCardProps) {
     <div className="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700/60 shadow-xs hover:shadow-lg transition-all duration-200 flex flex-col justify-between">
       <div>
         {/* Portfolio Cover Image Header */}
-        <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100 dark:bg-slate-700">
+        <Link href={`/servicos/${servico.id}`} className="relative block aspect-[16/10] w-full overflow-hidden bg-slate-100 dark:bg-slate-700">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={servico.portfolioImage}
@@ -42,7 +43,7 @@ export function ServicoCard({ servico }: ServicoCardProps) {
           <div className="absolute bottom-3 left-3 bg-slate-900/80 backdrop-blur-md text-white text-[11px] font-semibold px-2.5 py-1 rounded-full border border-white/10">
             📍 {servico.neighborhood}
           </div>
-        </div>
+        </Link>
 
         {/* Content Body */}
         <div className="p-4">
@@ -53,9 +54,12 @@ export function ServicoCard({ servico }: ServicoCardProps) {
           </div>
 
           {/* Provider Name & Specialty */}
-          <h3 className="font-bold text-slate-900 dark:text-white text-base leading-snug mb-1 group-hover:text-[var(--color-trust-blue)] transition-colors">
-            {servico.providerName}
-          </h3>
+          <Link href={`/servicos/${servico.id}`}>
+            <h3 className="font-bold text-slate-900 dark:text-white text-base leading-snug mb-1 group-hover:text-[var(--color-trust-blue)] transition-colors">
+              {servico.providerName}
+            </h3>
+          </Link>
+
 
           <p className="text-xs font-medium text-slate-600 dark:text-slate-300 mb-3">
             {servico.specialty}

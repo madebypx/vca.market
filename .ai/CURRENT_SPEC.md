@@ -1,39 +1,45 @@
-# CURRENT_SPEC.md — FASE 6 / Sprint P4: Gamificação, Reputação & Segurança Anti-Fraude
+# CURRENT_SPEC.md — Experiências Temáticas Dedicadas de Serviços, Comércio e Vagas
 
 ## Active task
-Gamificação, Reputação & Segurança Anti-Fraude (P4.1 a P4.4) — Etapa Final do MVP
+Implementação das Páginas de Detalhes Temáticas Restantes (`/servicos/[id]`, `/comercio/[id]`, `/vagas/[id]`)
 
 ## Goal
-Implementar o sistema de avaliações auditadas dos vendedores de Vitória da Conquista, badges gamificados de reputação e confiança (*Morador Bronze/Prata/Ouro*, *Vendedor Recomendado*), botão *"Denunciar Anúncio"* com modal de moderação anti-fraude e checklist final para deploy do MVP de produção.
+Construir experiências de detalhamento altamente especializadas e customizadas para as verticais de Serviços, Comércio e Vagas de Emprego em Vitória da Conquista, garantindo que cada página ofereça a micro-UX perfeita para seu modelo de negócio.
 
 ## Scope
 
-### 1. P4.1 — Sistema de Avaliações Auditadas (`/anunciante/[id]/avaliar`)
-- Modal de avaliação por estrelas (1 a 5) com depoimento escrito e tag de negociação confirmada via WhatsApp.
-- Exibição de média calculada de estrelas no Hotsite do Anunciante (`/anunciante/[id]`) e nos cards das listagens.
+### 1. 🛠️ Detalhe Temático de Serviços (`/servicos/[id]`)
+- Perfil do Prestador / Profissional de Vitória da Conquista.
+- Badges de atendimento: *Atendimento em Domicílio em VCA*, *Orçamento Grátis sem Compromisso*, *Garantia do Serviço*.
+- Galeria de Portfólio de Trabalhos Realizados (com fotos Antes & Depois).
+- Tabela de Preços Estimados / Hora de Trabalho.
+- Avaliações em Estrelas e Sidebar de Agendamento no WhatsApp.
 
-### 2. P4.2 — Gamificação & Badges de Confiança VCA
-- Pontuação dinâmica de reputação baseada em: tempo de conta, verificação de documento (CPF/CRECI), média de avaliações e anúncios ativos.
-- Badges visuais: *★ Vendedor Ouro*, *Morador Verificado*, *Resposta em < 15 min*.
+### 2. 🛍️ Detalhe Temático de Comércio & Produtos (`/comercio/[id]`)
+- Vitrine de E-Commerce & Loja Física de Conquista.
+- Badges de compra: *Condição (Novo / Seminovo / Usado)*, *Pronta Entrega*, *Garantia do Produto*.
+- Informações de Logística Local: *Polo de Retirada Física (Centro / Bairro Brasil / Candeias)* e *Entrega Expressa via Motoboy em VCA*.
+- Galeria de Fotos em Alta Resolução do Produto.
+- Sidebar de Compra & Reserva Direta no WhatsApp.
 
-### 3. P4.3 — Camada de Segurança & Denúncia Anti-Fraude
-- Botão *"Denunciar Anúncio"* presente em todos os anúncios e páginas de detalhe.
-- Modal de denúncia com categorias de motivo (ex: *Preço Irrealista/Golpe*, *Anúncio Duplicado*, *Telefone Falso*, *Produto Vendido*).
-
-### 4. P4.4 — Readiness Checklist & Produção
-- Auditoria final de build e tipos.
+### 3. 💼 Detalhe Temático de Vagas de Emprego (`/vagas/[id]`)
+- Ficha de Recrutamento & Oportunidades em Vitória da Conquista.
+- Destaques do Cargo: Empresa Contratante, Bairro da Vaga, Faixa Salarial em Destaque, Modelo (*Presencial*, *Híbrido*, *Remoto*), Contrato (*CLT*, *PJ*, *Estágio*).
+- Descrição Detalhada da Vaga, Requisitos Obrigatórios e Benefícios (Vale Transporte, VR, Plano de Saúde).
+- Botão *"Candidatar-se com Mini-Currículo Rápido"* com acionamento do `CurriculoQuickGeneratorModal`.
 
 ## Acceptance criteria
-- Modal de avaliação enviando depoimento e atualizando média no perfil do anunciante.
-- Exibição de badges de reputação em todas as 5 verticais de mercado.
-- Modal de denúncia operacional disparando alerta de segurança.
-- `npm run build` compilando sem erros de TypeScript.
+- Rotas `/servicos/[id]`, `/comercio/[id]` e `/vagas/[id]` operacionais e vinculadas aos cards das respectivas listagens.
+- Design responsivo alinhado ao `.ai/DESIGN.md` com suporte a Dark/Light Mode.
+- `npm run build` compilando 100% limpo com 0 erros de TypeScript.
 
 ## Out of scope nesta Sprint
-- Moderação por inteligência artificial em tempo real (utilização de moderação baseada em denúncias de usuários e regras de validação).
+- Sistema de checkout e pagamento por cartão dentro da plataforma (negociação e vendas tratadas via WhatsApp Lead Dispatcher).
 
 ## Deliverables
-- `src/components/anunciante/ReviewModal.tsx`
-- `src/components/common/TrustBadge.tsx`
-- `src/components/common/ReportListingModal.tsx`
-- Atualização em `src/app/anunciante/[id]/page.tsx` e cards das verticais.
+- `src/app/servicos/[id]/page.tsx`
+- `src/app/comercio/[id]/page.tsx`
+- `src/app/vagas/[id]/page.tsx`
+- `src/components/servicos/ServicoCard.tsx` (atualizado com Link)
+- `src/components/comercio/ComercioCard.tsx` (atualizado com Link)
+- `src/components/vagas/VagaCard.tsx` (atualizado com Link)
