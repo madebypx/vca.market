@@ -21,9 +21,4 @@
 * **[2026-07-26] Operação de Contas, Anúncios & Moderação Anti-Fraude (Sprints P3 & P4 — Conclusão do MVP):** Implementados o fluxo de login/cadastro (`/login`, `/cadastro`), a página de edição de anúncios (`/anuncios/[id]/editar`), a central de configurações e verificação de perfil (`/perfil/configuracoes`), o sistema de avaliações auditadas por estrelas (`ReviewModal`), os selos de reputação comunitária (`TrustBadge`) e o modal de denúncia anti-fraude (`ReportListingModal`), finalizando 100% o MVP de produção.
 * **[2026-07-26] Experiências Temáticas de Detalhamento por Vertical & Mapa Leaflet Real:** Implementadas páginas de detalhes dedicadas e altamente customizadas para as 5 verticais de mercado (`/imoveis/[id]`, `/veiculos/[id]`, `/servicos/[id]`, `/comercio/[id]`, `/vagas/[id]`), com destaque para o Dossiê de Manutenção & Saúde do Veículo, Ficha FIPE, Galeria de Portfólio de Serviços, Polo de Retirada/Motoboy e o Mapa Geográfico Real estilo Airbnb de Vitória da Conquista com Leaflet (`/imoveis`).
 * **[2026-07-26] Busca Preditiva, Moderação Admin & Prontidão de Produção:** Implementados o modal de busca preditiva instantânea no Header (`HeaderSearchModal`, `/api/search`), o painel de moderação administrativa (`/admin/moderacao`), os clientes Supabase browser/server (`@supabase/ssr`) e o guia oficial de lançamento de produção (`DEPLOYMENT_GUIDE.md`).
-
-
-
-
-
-
+* **[2026-07-26] Ecossistema de Autenticação Supabase Real, PKCE Callback & Auditoria de Software:** Conectados 100% dos fluxos de login/cadastro/perfil ao Supabase Auth com suporte a Magic Link (rota `/auth/callback`), login/cadastro com e-mail/senha, atualização de perfil no banco e dropdown de perfil reativo com encerramento de sessão real.
