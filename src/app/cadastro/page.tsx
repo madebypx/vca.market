@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { signUpWithEmail } from '@/app/actions/auth';
 
 export default function CadastroPage() {
   const router = useRouter();
@@ -14,13 +15,21 @@ export default function CadastroPage() {
   const [neighborhood, setNeighborhood] = useState('Candeias');
   const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
-      router.push('/perfil');
-    }, 800);
+    setErrorMsg(null);
+
+    const result = await signUpWithEmail(email, password, fullName, phone, neighborhood);
+    setSubmitting(false);
+
+    if (result.success) {
+      router.push('/login?message=Conta+criada+com+sucesso!+Faça+login+agora.');
+    } else {
+      setErrorMsg(result.error || 'Erro ao criar conta. Tente novamente.');
+    }
   };
 
   return (
@@ -160,6 +169,12 @@ export default function CadastroPage() {
           >
             {submitting ? 'Criando Conta...' : 'Finalizar Cadastro Gratuito'}
           </button>
+          
+          {errorMsg && (
+            <p className="text-xs font-semibold text-center px-3 py-2 rounded-xl bg-rose-50 dark:bg-rose-950/30 text-rose-600 dark:text-rose-400 mt-4">
+              {errorMsg}
+            </p>
+          )}
         </form>
 
         {/* Footer Link to Login */}

@@ -1,22 +1,70 @@
 'use client';
 
-import { useState } from 'react';
-import { UserRole } from '@/types/user';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { UserRole, UserProfile } from '@/types/user';
 import { MOCK_USER_PROFILES, MOCK_USER_LISTINGS, MOCK_SAVED_FAVORITES } from '@/data/mockUser';
 import { UserProfileHeader } from '@/components/perfil/UserProfileHeader';
 import { UserFavoritesTab } from '@/components/perfil/UserFavoritesTab';
 import { UserListingsTab } from '@/components/perfil/UserListingsTab';
 import { UserLeadsTab } from '@/components/perfil/UserLeadsTab';
-import { ProUpgradeBanner } from '@/components/perfil/ProUpgradeBanner';
 import { AnalyticsDashboard } from '@/components/perfil/AnalyticsDashboard';
-
+import { createClient } from '@/lib/supabase/client';
 
 export default function PerfilPage() {
+  const router = useRouter();
   const [activeRole, setActiveRole] = useState<UserRole>('particular');
   const [activeTab, setActiveTab] = useState<'favorites' | 'listings' | 'leads' | 'settings'>('listings');
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  // Select profile data dynamically based on activeRole
-  const currentUser = MOCK_USER_PROFILES[activeRole];
+  useEffect(() => {
+    async function loadSession() {
+      try {
+        const supabase = createClient();
+        const { data: { user } } = await supabase.auth.getUser();
+
+        if (user) {
+          const name = user.user_metadata?.full_name || user.email?.split('@')[0] || 'Usuário VCA';
+          const neighborhood = user.user_metadata?.neighborhood || 'Candeias';
+          const phone = user.user_metadata?.phone || user.phone || '(77) 99999-0000';
+          const creciNumber = user.user_metadata?.creci_number;
+
+          const profile: UserProfile = {
+            id: user.id,
+            name,
+            email: user.email || '',
+            phone,
+            avatarUrl: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(name)}`,
+            neighborhood,
+            role: (user.user_metadata?.role as UserRole) || 'particular',
+            cpfVerified: true,
+            creciNumber,
+            memberSince: 'Julho 2026',
+            rating: 4.9,
+          };
+          setUserProfile(profile);
+        } else {
+          setUserProfile(MOCK_USER_PROFILES['particular']);
+        }
+      } catch {
+        setUserProfile(MOCK_USER_PROFILES['particular']);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadSession();
+  }, []);
+
+  const currentUser = userProfile || MOCK_USER_PROFILES[activeRole];
+
+  if (loading) {
+    return (
+      <div className="w-full min-h-screen bg-slate-50 dark:bg-[#090D16] flex items-center justify-center p-4">
+        <p className="text-xs font-semibold text-slate-500 animate-pulse">Carregando painel do perfil...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full min-h-screen bg-slate-50 dark:bg-[#090D16] pb-16">
@@ -74,12 +122,8 @@ export default function PerfilPage() {
           )}
 
           <button
-            onClick={() => setActiveTab('settings')}
-            className={`px-4 py-2.5 font-bold text-xs rounded-xl transition-all whitespace-nowrap ${
-              activeTab === 'settings'
-                ? 'bg-[var(--color-primary)] text-white shadow-xs'
-                : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
-            }`}
+            onClick={() => router.push('/perfil/configuracoes')}
+            className="px-4 py-2.5 font-bold text-xs rounded-xl text-slate-500 hover:text-slate-900 dark:hover:text-white transition-all whitespace-nowrap"
           >
             ⚙️ Configurações da Conta
           </button>
@@ -100,56 +144,6 @@ export default function PerfilPage() {
             <UserLeadsTab role={activeRole} />
           </div>
         )}
-
-
-        {activeTab === 'settings' && (
-          <div className="bg-white dark:bg-slate-800 rounded-3xl p-6 border border-slate-200 dark:border-slate-700/60 shadow-xs flex flex-col gap-4 my-4">
-            <h3 className="font-extrabold text-slate-900 dark:text-white text-base">
-              Dados da Conta & Preferências em Vitória da Conquista
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-              <div>
-                <label className="block text-slate-400 font-bold mb-1">Nome Completo</label>
-                <input
-                  type="text"
-                  readOnly
-                  value={currentUser.name}
-                  className="w-full bg-slate-100 dark:bg-slate-700 border-none rounded-xl px-3 py-2 text-slate-800 dark:text-slate-200 font-medium"
-                />
-              </div>
-              <div>
-                <label className="block text-slate-400 font-bold mb-1">E-mail Cadastrado</label>
-                <input
-                  type="text"
-                  readOnly
-                  value={currentUser.email}
-                  className="w-full bg-slate-100 dark:bg-slate-700 border-none rounded-xl px-3 py-2 text-slate-800 dark:text-slate-200 font-medium"
-                />
-              </div>
-              <div>
-                <label className="block text-slate-400 font-bold mb-1">WhatsApp de Contato</label>
-                <input
-                  type="text"
-                  readOnly
-                  value={currentUser.phone}
-                  className="w-full bg-slate-100 dark:bg-slate-700 border-none rounded-xl px-3 py-2 text-slate-800 dark:text-slate-200 font-medium"
-                />
-              </div>
-              <div>
-                <label className="block text-slate-400 font-bold mb-1">Bairro de Residência</label>
-                <input
-                  type="text"
-                  readOnly
-                  value={`Bairro ${currentUser.neighborhood}`}
-                  className="w-full bg-slate-100 dark:bg-slate-700 border-none rounded-xl px-3 py-2 text-slate-800 dark:text-slate-200 font-medium"
-                />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Upgrade Banner for Non-Pro accounts */}
-        {activeRole !== 'pro' && <ProUpgradeBanner />}
       </div>
     </div>
   );

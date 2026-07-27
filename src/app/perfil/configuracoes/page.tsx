@@ -1,28 +1,82 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { createClient } from '@/lib/supabase/client';
+import { updateUserProfile } from '@/app/actions/auth';
 
 export default function AccountSettingsPage() {
-  const [fullName, setFullName] = useState('Matheus Oliveira');
-  const [phone, setPhone] = useState('(77) 99988-7766');
-  const [email, setEmail] = useState('matheus@exemplo.com');
+  const router = useRouter();
+  const [fullName, setFullName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
   const [neighborhood, setNeighborhood] = useState('Candeias');
-  const [creciNumber, setCreciNumber] = useState('CRECI-BA 12345');
+  const [creciNumber, setCreciNumber] = useState('');
   const [documentFile, setDocumentFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [message, setMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
 
-  const handleSave = (e: React.FormEvent) => {
+  useEffect(() => {
+    async function loadUserData() {
+      try {
+        const supabase = createClient();
+        const { data: { user } } = await supabase.auth.getUser();
+
+        if (!user) {
+          router.push('/login');
+          return;
+        }
+
+        setEmail(user.email || '');
+        setFullName(user.user_metadata?.full_name || '');
+        setPhone(user.user_metadata?.phone || user.phone || '');
+        setNeighborhood(user.user_metadata?.neighborhood || 'Candeias');
+        setCreciNumber(user.user_metadata?.creci_number || '');
+      } catch {
+        // Fallback
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadUserData();
+  }, [router]);
+
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
-    setSuccessMessage(null);
+    setMessage(null);
 
-    setTimeout(() => {
-      setSaving(false);
-      setSuccessMessage('Configurações salvas e solicitação de verificação enviada com sucesso!');
-    }, 800);
+    const result = await updateUserProfile({
+      fullName,
+      phone,
+      neighborhood,
+      creciNumber,
+    });
+
+    setSaving(false);
+
+    if (result.success) {
+      setMessage({
+        text: 'Configurações atualizadas com sucesso!',
+        type: 'success',
+      });
+    } else {
+      setMessage({
+        text: result.error || 'Erro ao salvar alterações.',
+        type: 'error',
+      });
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-50 dark:bg-[#090D16] flex items-center justify-center p-4">
+        <p className="text-xs font-semibold text-slate-500 animate-pulse">Carregando configurações da conta...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-[#090D16] py-8 px-4 sm:px-6">
@@ -104,14 +158,13 @@ export default function AccountSettingsPage() {
 
             <div>
               <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                E-mail Notificação
+                E-mail de Notificação (Somente Leitura)
               </label>
               <input
                 type="email"
-                required
+                disabled
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm"
+                className="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400 text-sm cursor-not-allowed"
               />
             </div>
           </div>
@@ -153,9 +206,13 @@ export default function AccountSettingsPage() {
             </div>
           </div>
 
-          {successMessage && (
-            <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 text-center bg-emerald-500/10 p-3 rounded-xl border border-emerald-500/20">
-              {successMessage}
+          {message && (
+            <p className={`text-xs font-semibold text-center p-3 rounded-xl ${
+              message.type === 'error'
+                ? 'bg-rose-50 dark:bg-rose-950/30 text-rose-600 dark:text-rose-400'
+                : 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400'
+            }`}>
+              {message.text}
             </p>
           )}
 

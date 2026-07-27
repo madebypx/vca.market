@@ -86,7 +86,7 @@ export async function sendMagicLinkEmail(email: string): Promise<AuthResult> {
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: `${siteUrl}/perfil`,
+        emailRedirectTo: `${siteUrl}/auth/callback?next=/perfil`,
       },
     });
 
@@ -101,6 +101,38 @@ export async function sendMagicLinkEmail(email: string): Promise<AuthResult> {
 }
 
 // ─── Email + Password ─────────────────────────────────────────────────────────
+
+export async function signUpWithEmail(email: string, password: string, fullName: string, phone: string, neighborhood: string): Promise<AuthResult> {
+  try {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const isDemo = !supabaseUrl || supabaseUrl.includes('placeholder');
+
+    if (isDemo) {
+      return { success: true, isDemo: true };
+    }
+
+    const supabase = await createClient();
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name: fullName,
+          phone,
+          neighborhood,
+        },
+      },
+    });
+
+    if (error) {
+      return { success: false, error: error.message };
+    }
+
+    return { success: true };
+  } catch {
+    return { success: false, error: 'Erro ao criar conta. Tente novamente em instantes.' };
+  }
+}
 
 export async function signInWithEmail(email: string, password: string): Promise<AuthResult> {
   try {
@@ -147,10 +179,57 @@ export async function getCurrentProfile() {
       email: user.email,
       phone: user.phone,
       neighborhood: user.user_metadata?.neighborhood || 'Vitória da Conquista',
-      verification_tier: 'community' as const,
+      verification_tier: user.user_metadata?.verification_tier || 'community',
+      creci_number: user.user_metadata?.creci_number || '',
     };
   } catch {
     return null;
+  }
+}
+
+export async function updateUserProfile(data: {
+  fullName?: string;
+  phone?: string;
+  neighborhood?: string;
+  creciNumber?: string;
+}): Promise<AuthResult> {
+  try {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+      return { success: false, error: 'Usuário não autenticado.' };
+    }
+
+    const updatedMetadata = {
+      ...user.user_metadata,
+      ...(data.fullName ? { full_name: data.fullName } : {}),
+      ...(data.phone ? { phone: data.phone } : {}),
+      ...(data.neighborhood ? { neighborhood: data.neighborhood } : {}),
+      ...(data.creciNumber !== undefined ? { creci_number: data.creciNumber } : {}),
+    };
+
+    const { error: updateAuthError } = await supabase.auth.updateUser({
+      data: updatedMetadata,
+    });
+
+    if (updateAuthError) {
+      return { success: false, error: updateAuthError.message };
+    }
+
+    // Try updating profiles table as well if it exists
+    await supabase.from('profiles').upsert({
+      id: user.id,
+      full_name: updatedMetadata.full_name,
+      neighborhood: updatedMetadata.neighborhood,
+      updated_at: new Date().toISOString(),
+    });
+
+    revalidatePath('/perfil');
+    revalidatePath('/perfil/configuracoes');
+    return { success: true };
+  } catch {
+    return { success: false, error: 'Erro ao atualizar perfil.' };
   }
 }
 
